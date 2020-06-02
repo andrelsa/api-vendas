@@ -5,10 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TokenDto {
-
-    private String login;
-    private String token;
+@NoArgsConstructor
+public class ItemPedidoDTO {
+    private Integer produto;
+    private Integer quantidade;
 }

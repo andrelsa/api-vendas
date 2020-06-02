@@ -1,11 +1,14 @@
 package com.dev.andrelsa.rest.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CredenciaisDto {
+@AllArgsConstructor
+public class TokenDTO {
+
     private String login;
-    private String senha;
+    private String token;
 }

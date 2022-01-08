@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import java.util.List;
 
 @SpringBootApplication()
 public class VendasApplication {
@@ -18,8 +19,8 @@ public class VendasApplication {
 			clienteRepository.save(new Cliente("André"));
 			clienteRepository.save(new Cliente("Gabi"));
 			
-			boolean existe = clienteRepository.existsByNome("Gabi");
-			System.out.println("existe um cliente com o nome Gabi? " + existe);
+			List<Cliente> clientes = clienteRepository.encontrarPorNome("Gabi");
+			clientes.forEach(System.out::println);
 		};
 	}
 	

@@ -1,20 +1,34 @@
 package github.com.andrelsa.domain.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cliente")
 public class Cliente {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
-	private String name;
+	
+	@Column(name = "nome", length = 100)
+	private String nome;
 	
 	public Cliente() {
 	}
 	
-	public Cliente(String name) {
-		this.name = name;
+	public Cliente(String nome) {
+		this.nome = nome;
 	}
 	
-	public Cliente(Integer id, String name) {
+	public Cliente(Integer id, String nome) {
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 	}
 	
 	public Integer getId() {
@@ -25,17 +39,17 @@ public class Cliente {
 		this.id = id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	@Override
 	public String toString() {
-		return "Cliente{" + "id=" + id + ", name='" + name + '\'' + '}';
+		return "Cliente{" + "id=" + id + ", nome='" + nome + '\'' + '}';
 	}
 	
 }

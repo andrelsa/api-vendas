@@ -1,11 +1,26 @@
 package github.com.andrelsa.domain.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "produto")
 public class Produto {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "descricao", length = 100)
 	private String descricao;
+	
+	@Column(name = "preco_unitario", length = 20, precision = 2)
 	private BigDecimal preco;
 	
 	public Integer getId() {

@@ -1,6 +1,8 @@
 package github.com.andrelsa.rest.controller;
 
-import github.com.andrelsa.domain.entity.Cliente;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
 import github.com.andrelsa.domain.entity.Produto;
 import github.com.andrelsa.domain.repository.ProdutoRepository;
 import org.springframework.data.domain.Example;
@@ -16,13 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import static org.springframework.http.HttpStatus.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/produtos")
 public class ProdutoController {
 	
 	private final ProdutoRepository produtoRepository;
@@ -57,7 +56,6 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/{id}")
-	@ResponseStatus(NO_CONTENT)
 	public Produto obterPorId(@PathVariable Integer id) {
 		return produtoRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));

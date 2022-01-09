@@ -2,6 +2,8 @@ package github.com.andrelsa.rest.controller;
 
 import github.com.andrelsa.domain.entity.Cliente;
 import github.com.andrelsa.domain.repository.ClienteRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -65,6 +68,17 @@ public class ClienteController {
 			return ResponseEntity.noContent().build();
 		}).orElseGet(() -> ResponseEntity.notFound().build());
 		
+	}
+	
+	@GetMapping
+	@ResponseBody
+	public ResponseEntity buscar(Cliente filtro) {
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase()
+				.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+		
+		Example example = Example.of(filtro, matcher);
+		List<Cliente> lista = clienteRepository.findAll(example);
+		return ResponseEntity.ok(lista);
 	}
 	
 }

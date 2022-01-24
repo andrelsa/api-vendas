@@ -4,6 +4,7 @@ import github.com.andrelsa.domain.entity.Cliente;
 import github.com.andrelsa.domain.entity.ItemPedido;
 import github.com.andrelsa.domain.entity.Pedido;
 import github.com.andrelsa.domain.entity.Produto;
+import github.com.andrelsa.domain.enums.StatusPedido;
 import github.com.andrelsa.domain.repository.ClienteRepository;
 import github.com.andrelsa.domain.repository.ItemPedidoRepository;
 import github.com.andrelsa.domain.repository.PedidoRepository;
@@ -40,6 +41,7 @@ public class PedidoServiceImpl implements PedidoService {
 		pedido.setTotal(dto.getTotal());
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(cliente);
+		pedido.setStatus(StatusPedido.REALIZADO);
 		
 		List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
 		pedidoRepository.save(pedido);

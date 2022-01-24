@@ -1,16 +1,18 @@
 package github.com.andrelsa.rest.controller;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 import github.com.andrelsa.domain.entity.ItemPedido;
 import github.com.andrelsa.domain.entity.Pedido;
+import github.com.andrelsa.domain.enums.StatusPedido;
+import github.com.andrelsa.rest.dto.AtualizacaoStatusPedidoDTO;
 import github.com.andrelsa.rest.dto.InformacaoItemPedidoDTO;
 import github.com.andrelsa.rest.dto.InformacoesPedidoDTO;
 import github.com.andrelsa.rest.dto.PedidoDTO;
 import github.com.andrelsa.service.PedidoService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +47,13 @@ public class PedidoController {
 	public InformacoesPedidoDTO getById(@PathVariable Integer id) {
 		return pedidoService.obterPedidoCompleto(id).map(pedido -> converter(pedido))
 				.orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Pedido não encontrado."));
+	}
+	
+	@PatchMapping("/{id}")
+	@ResponseStatus(NO_CONTENT)
+	public void atualizarStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto){
+		String novoStatus = dto.getNovoStatus();
+		pedidoService.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
 	}
 	
 	private InformacoesPedidoDTO converter(Pedido pedido) {

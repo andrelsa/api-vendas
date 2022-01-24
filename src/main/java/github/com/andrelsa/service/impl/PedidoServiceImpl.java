@@ -9,6 +9,7 @@ import github.com.andrelsa.domain.repository.ClienteRepository;
 import github.com.andrelsa.domain.repository.ItemPedidoRepository;
 import github.com.andrelsa.domain.repository.PedidoRepository;
 import github.com.andrelsa.domain.repository.ProdutoRepository;
+import github.com.andrelsa.exception.PedidoNaoEncontradoException;
 import github.com.andrelsa.exception.RegraNegocioException;
 import github.com.andrelsa.rest.dto.ItemPedidoDTO;
 import github.com.andrelsa.rest.dto.PedidoDTO;
@@ -71,6 +72,16 @@ public class PedidoServiceImpl implements PedidoService {
 	@Override
 	public Optional<Pedido> obterPedidoCompleto(Integer id) {
 		return pedidoRepository.findByIdFetchItens(id);
+	}
+	
+	@Transactional
+	@Override
+	public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+		pedidoRepository.findById(id)
+				.map(pedido -> {
+					pedido.setStatus(statusPedido);
+					return pedidoRepository.save(pedido);
+				}).orElseThrow(() -> new PedidoNaoEncontradoException());
 	}
 	
 }

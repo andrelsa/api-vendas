@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ public class PedidoController {
 	
 	@PostMapping
 	@ResponseStatus(CREATED)
-	public Integer salvar(@RequestBody PedidoDTO dto) {
+	public Integer salvar(@RequestBody @Valid PedidoDTO dto) {
 		Pedido pedido = pedidoService.salvar(dto);
 		return pedido.getId();
 		

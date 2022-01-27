@@ -19,6 +19,8 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -37,7 +39,7 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(CREATED)
-	public Cliente salvar(@RequestBody Cliente cliente) {
+	public Cliente salvar(@RequestBody @Valid Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 	

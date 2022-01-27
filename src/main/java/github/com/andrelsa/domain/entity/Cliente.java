@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,6 +33,8 @@ public class Cliente {
 	private String nome;
 	
 	@Column(name = "cpf", length = 11)
+	@NotEmpty(message = "Campo CPF é obrigatório")
+	@CPF(message = "Informe um CPF válido")
 	private String cpf;
 	
 	@JsonIgnore
